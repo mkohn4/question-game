@@ -1,0 +1,21 @@
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+section#main {
+    display: flex;
+    flex-direction: column;
+}
+
+#main h1,
+#main span {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.button-wrapper {
+    display:flex;
+    justify-content: center;
+}
+
