@@ -25,27 +25,38 @@
     <section id="quiz" >
         <div id="quiz-1" class="quiz-box quiz-1">
             <div class="question">What is your favorite color?</div>
-            <div class="answer" data-number="1">Red</div>
-            <div class="answer" data-number="2">Blue</div>
-            <div class="answer" data-number="3">Green</div>
-            <div class="answer" data-number="4">Orange</div>
+            <ol>
+                <li class="answer" data-number="1" value="true">Red</li>
+                <li class="answer" data-number="2" value="false">Blue</li>
+                <li class="answer" data-number="3" value="false">Green</li>
+                <li class="answer" data-number="4" value="false">Orange</li>
+            </ol>
         </div>
         <div id="quiz-2" class="quiz-box quiz-2">
             <div class="question">What is your favorite beer?</div>
-            <div class="answer" data-number="1">Red</div>
-            <div class="answer" data-number="2">Blue</div>
-            <div class="answer" data-number="3">Green</div>
-            <div class="answer" data-number="4">Orange</div>
+            <ol>
+                <li class="answer" data-number="1" value="false">Red</li>
+                <li class="answer" data-number="2" value="true">Blue</li>
+                <li class="answer" data-number="3" value="false">Green</li>
+                <li class="answer" data-number="4" value="false">Orange</li>
+            </ol>
         </div>
         <div id="quiz-3" class="quiz-box quiz-3">
             <div class="question">What is your favorite wine?</div>
-            <div class="answer" data-number="1">Red</div>
-            <div class="answer" data-number="2">Blue</div>
-            <div class="answer" data-number="3">Green</div>
-            <div class="answer" data-number="4">Orange</div>
+            <ol>
+                <li class="answer" data-number="1" value="false">Red</li>
+                <li class="answer" data-number="2" value="false">Blue</li>
+                <li class="answer" data-number="3" value="true">Green</li>
+                <li class="answer" data-number="4" value="false">Orange</li>
+            </ol>
         </div>
-
-
+    </section>
+    <section id="high-score" style="display:none">
+        <form>
+            <span>Enter your Initials</span>
+            <input id="initials"/>
+            <button id="score-btn" value="submit" type="submit">Submit</button>
+        </form>
     </section>
     <script src="./assets/js/script.js"></script>
 </body>

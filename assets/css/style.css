@@ -22,3 +22,10 @@ section#main {
 .quiz-box {
     display: none;
 }
+
+li.answer {
+    cursor: pointer;
+}
+li.answer:hover {
+    border: 3px solid #000;
+}

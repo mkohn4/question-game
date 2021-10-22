@@ -28,11 +28,24 @@ var timerEl = document.getElementById('timer');
 var quiz1 = document.getElementById('quiz-1');
 var quiz2 = document.getElementById('quiz-2');
 var quiz3 = document.getElementById('quiz-3');
+//declare quiz elements as an array
+var quiz = [quiz1, quiz2, quiz3 ];
+var highScore = document.getElementById('high-score');
 
+//set time left in timer
+var timeLeft = 5;
+
+//set global array count
+var arrayPosition = 0;
+
+//variable for high score submit button
+var scoreBtn = document.getElementById('score-btn');
+
+//gets the item from local storage if it already exists OR establish scoreArray for array of scores
+var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
 
 function countdown() {
-    //set time left in timer
-    var timeLeft = 5;
+    
     //run function once a second
     var timeInterval = setInterval(function() {
       
@@ -53,14 +66,62 @@ function countdown() {
   };
 
 
+function saveAnswer() {
+    scoreBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        //store initials
+        var scoreInput = document.getElementById('initials').value;
+        console.log(scoreInput);
+        //
+        if (!scoreInput) {
+            alert('You need to add initials!');
+            return;
+        } else{
+            var saveScore = {
+                initials: scoreInput,
+                score: timeLeft
+            };
+            //pushes saveScore Object values to the array
+            scoreArray.push(saveScore);
+            //save array to local storage
+            localStorage.setItem('scoreArray', JSON.stringify(scoreArray));
+        }
+
+    });
+};
 
 //onclick of each container
 startGame.addEventListener("click", function() {
     countdown();
     //set value of display attribute on quiz 1 to block from none
     quiz1.style.display = "block";
-    
-    
 
+    document.querySelectorAll('.answer').forEach(item => {
+        item.addEventListener('click', function(event) {
+                //console log value of html element clicked in answer to find true or false
+                console.log(event.target.getAttribute('value'));
+                
+                    //if value=true, then show next question
+                    if (event.target.getAttribute('value') === 'false') {
+                       timeLeft--;
+                    };
+                    //when question answered make quiz question disappear
+                    quiz[arrayPosition].style.display = "none";
+                    //once user answers a question, increment arrayPosition
+                    arrayPosition++;
+                    //if arrayPosition is greater than array number, ask for initials and high score
+                    if (arrayPosition > quiz.length-1){
+                        //display high score value
+                        highScore.style.display="block";
+                        //call saveAnswer
+                        saveAnswer();
+                    }else{
+                        //show next question
+                        quiz[arrayPosition].style.display = "block";
+                    }
+            })
+        }
+
+    )
     
 });
