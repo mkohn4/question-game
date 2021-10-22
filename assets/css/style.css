@@ -19,3 +19,6 @@ section#main {
     justify-content: center;
 }
 
+.quiz-box {
+    display: none;
+}
