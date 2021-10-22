@@ -72,11 +72,12 @@ function saveAnswer() {
         //store initials
         var scoreInput = document.getElementById('initials').value;
         console.log(scoreInput);
-        //
+        //if scoreInput doesnt exist, alert user
         if (!scoreInput) {
             alert('You need to add initials!');
             return;
         } else{
+            //saveScore as an object with initials and current time left
             var saveScore = {
                 initials: scoreInput,
                 score: timeLeft
