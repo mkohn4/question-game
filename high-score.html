@@ -32,11 +32,17 @@
             //iterate through array of scoreArray
             //display values of array as text in the
             console.log('displayScoreButton');
+            //create ol for ordered list
             var listEl = document.createElement("ol");
+            //append ol element to display-score div
+            displayScore.appendChild(listEl);
+            //loop over the length of the array of scores from local storage
             for (i=0; i < scoreArray.length; i++) {
+                //create a list item
                 var li1 = document.createElement("li");
+                //use JSON stringify and textContent to make the objects in the array displayed as text in the li
                 li1.textContent = JSON.stringify(scoreArray[i].initials + ": " + scoreArray[i].score);
-                displayScore.appendChild(listEl);
+                //append each list item to the ordered list created above
                 listEl.appendChild(li1);
         
             };
