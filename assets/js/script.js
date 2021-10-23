@@ -28,8 +28,9 @@ var timerEl = document.getElementById('timer');
 var quiz1 = document.getElementById('quiz-1');
 var quiz2 = document.getElementById('quiz-2');
 var quiz3 = document.getElementById('quiz-3');
+var quizContainer = document.getElementById('quiz');
 //declare quiz elements as an array
-var quiz = [quiz1, quiz2, quiz3 ];
+var quiz = [quiz1, quiz2, quiz3];
 var highScore = document.getElementById('high-score');
 
 //set time left in timer
@@ -45,38 +46,6 @@ var scoreBtn = document.getElementById('score-btn');
 var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
 //set timeLeft = timeScore when quiz questions answered
 var timeScore;
-
-//high score page
-//variable for button to display scores
-var displayScoreBtn = document.getElementById('display-score-btn');
-//get score divs
-var displayScore = document.getElementById('display-score');
-
-
-
-
-
-
-function countdown() {
-    
-    //run function once a second
-    var timeInterval = setInterval(function() {
-      
-      if (timeLeft >= 1 ) {
-          //run time left every second
-          timerEl.textContent = timeLeft;
-          //decrement timeLeft
-          timeLeft--;
-      } else {
-          //show time up when time runs out
-        timerEl.textContent = 'Time Up!';
-        //stop timer from continuing to decrement
-        clearInterval(timeInterval);
-      }
-      
-  
-    }, 1000);
-  };
 
 
 
@@ -105,23 +74,45 @@ function saveAnswer() {
     });
 };
 
+//function to call when the game is over to hide elements and show input
+function gameOver() {
+    //when question answered make quiz question disappear
+    quizContainer.style.display = "none";
+    //display high score initials input
+    highScore.style.display="block";
+    //set timeScore variable to current value of time left
+    timeScore = timeLeft;
+    //call saveAnswer to save array into local storage of values
+    saveAnswer();
+}
 
-/*displayScoreBtn.addEventListener("click", function displayScores() {
-    //when user clicks button
-    //iterate through array of scoreArray
-    //display values of array as text in the
-    var listEl = document.createElement("ol");
-    for (i=0; i < scoreArray.length; i++) {
-        var li1 = document.createElement("li");
-        li1.textContent = JSON.stringify(scoreArray[i].initials + ": " + scoreArray[i].score);
-        displayScore.appendChild(listEl);
-        listEl.appendChild(li1);
 
-    };
-});*/
+function countdown() {
+    
+    //run function once a second
+    var timeInterval = setInterval(function() {
+      
+      if (timeLeft >= 1 ) {
+          //run time left every second
+          timerEl.textContent = timeLeft;
+          //decrement timeLeft
+          timeLeft--;
+      } else {
+
+          //show time up when time runs out
+        timerEl.textContent = 'Time Up!';
+        clearInterval(timeInterval);
+        gameOver();
+      }
+      
+  
+    }, 1000);
+  };
+
 
 //onclick of each container
 startGame.addEventListener("click", function() {
+    console.log('startGame');
     countdown();
     //set value of display attribute on quiz 1 to block from none
     quiz1.style.display = "block";
@@ -140,13 +131,8 @@ startGame.addEventListener("click", function() {
                     //once user answers a question, increment arrayPosition
                     arrayPosition++;
                     //if arrayPosition is greater than array number, ask for initials and high score
-                    if (arrayPosition > quiz.length-1 || timeLeft < 1){
-                        //display high score initials input
-                        highScore.style.display="block";
-                        //set timeScore variable to current value of time left
-                        timeScore = timeLeft;
-                        //call saveAnswer to save array into local storage of values
-                        saveAnswer();
+                    if (arrayPosition > quiz.length-1){
+                        gameOver();
                     }else{
                         //show next question
                         quiz[arrayPosition].style.display = "block";

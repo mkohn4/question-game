@@ -20,6 +20,27 @@
             <div id="display-score"></div>
         </div>
     </section>
-    <script src="./assets/js/script.js"></script>
+    <script>
+        //variable for button to display scores
+        var displayScoreBtn = document.getElementById('display-score-btn');
+        //get score divs
+        var displayScore = document.getElementById('display-score');
+        //gets the item from local storage if it already exists OR establish scoreArray for array of scores
+        var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
+        displayScoreBtn.addEventListener("click", function displayScores() {
+            //when user clicks button
+            //iterate through array of scoreArray
+            //display values of array as text in the
+            console.log('displayScoreButton');
+            var listEl = document.createElement("ol");
+            for (i=0; i < scoreArray.length; i++) {
+                var li1 = document.createElement("li");
+                li1.textContent = JSON.stringify(scoreArray[i].initials + ": " + scoreArray[i].score);
+                displayScore.appendChild(listEl);
+                listEl.appendChild(li1);
+        
+            };
+        });
+    </script>
 </body>
 </html>
