@@ -16,7 +16,14 @@ section#main {
 
 .button-wrapper {
     display:flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+#display-score-btn {
+    padding: 5px;
+    width: 10%;
 }
 
 .quiz-box {

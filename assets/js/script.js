@@ -33,7 +33,7 @@ var quiz = [quiz1, quiz2, quiz3 ];
 var highScore = document.getElementById('high-score');
 
 //set time left in timer
-var timeLeft = 5;
+var timeLeft = 20;
 
 //set global array count
 var arrayPosition = 0;
@@ -43,6 +43,19 @@ var scoreBtn = document.getElementById('score-btn');
 
 //gets the item from local storage if it already exists OR establish scoreArray for array of scores
 var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
+//set timeLeft = timeScore when quiz questions answered
+var timeScore;
+
+//high score page
+//variable for button to display scores
+var displayScoreBtn = document.getElementById('display-score-btn');
+//get score divs
+var displayScore = document.getElementById('display-score');
+
+
+
+
+
 
 function countdown() {
     
@@ -66,6 +79,7 @@ function countdown() {
   };
 
 
+
 function saveAnswer() {
     scoreBtn.addEventListener("click", function(event) {
         event.preventDefault();
@@ -80,7 +94,7 @@ function saveAnswer() {
             //saveScore as an object with initials and current time left
             var saveScore = {
                 initials: scoreInput,
-                score: timeLeft
+                score: timeScore
             };
             //pushes saveScore Object values to the array
             scoreArray.push(saveScore);
@@ -90,6 +104,21 @@ function saveAnswer() {
 
     });
 };
+
+
+/*displayScoreBtn.addEventListener("click", function displayScores() {
+    //when user clicks button
+    //iterate through array of scoreArray
+    //display values of array as text in the
+    var listEl = document.createElement("ol");
+    for (i=0; i < scoreArray.length; i++) {
+        var li1 = document.createElement("li");
+        li1.textContent = JSON.stringify(scoreArray[i].initials + ": " + scoreArray[i].score);
+        displayScore.appendChild(listEl);
+        listEl.appendChild(li1);
+
+    };
+});*/
 
 //onclick of each container
 startGame.addEventListener("click", function() {
@@ -111,10 +140,12 @@ startGame.addEventListener("click", function() {
                     //once user answers a question, increment arrayPosition
                     arrayPosition++;
                     //if arrayPosition is greater than array number, ask for initials and high score
-                    if (arrayPosition > quiz.length-1){
-                        //display high score value
+                    if (arrayPosition > quiz.length-1 || timeLeft < 1){
+                        //display high score initials input
                         highScore.style.display="block";
-                        //call saveAnswer
+                        //set timeScore variable to current value of time left
+                        timeScore = timeLeft;
+                        //call saveAnswer to save array into local storage of values
                         saveAnswer();
                     }else{
                         //show next question
@@ -126,3 +157,6 @@ startGame.addEventListener("click", function() {
     )
     
 });
+
+
+
