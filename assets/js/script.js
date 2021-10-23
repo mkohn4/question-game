@@ -48,8 +48,9 @@ var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
 var timeScore;
 
 
-
+//function to submit initials and score
 function saveAnswer() {
+    //listen for click of initials submit button
     scoreBtn.addEventListener("click", function(event) {
         event.preventDefault();
         //store initials
@@ -60,7 +61,7 @@ function saveAnswer() {
             alert('You need to add initials!');
             return;
         } else{
-            //saveScore as an object with initials and current time left
+            //create saveScore as an object with initials and current time left
             var saveScore = {
                 initials: scoreInput,
                 score: timeScore
@@ -86,7 +87,7 @@ function gameOver() {
     saveAnswer();
 }
 
-
+//function to countdown timer
 function countdown() {
     
     //run function once a second
@@ -101,7 +102,9 @@ function countdown() {
 
           //show time up when time runs out
         timerEl.textContent = 'Time Up!';
+        //stop timer from running
         clearInterval(timeInterval);
+        //call game over function if time runs out
         gameOver();
       }
       
@@ -112,11 +115,11 @@ function countdown() {
 
 //onclick of each container
 startGame.addEventListener("click", function() {
-    console.log('startGame');
+    //start timer
     countdown();
     //set value of display attribute on quiz 1 to block from none
     quiz1.style.display = "block";
-
+    //listen for a click on each li.answer that is displayed
     document.querySelectorAll('.answer').forEach(item => {
         item.addEventListener('click', function(event) {
                 //console log value of html element clicked in answer to find true or false
@@ -124,6 +127,7 @@ startGame.addEventListener("click", function() {
                 
                     //if value=true, then show next question
                     if (event.target.getAttribute('value') === 'false') {
+                        //decrement timeLeft in timer by 1
                        timeLeft--;
                     };
                     //when question answered make quiz question disappear
@@ -132,6 +136,7 @@ startGame.addEventListener("click", function() {
                     arrayPosition++;
                     //if arrayPosition is greater than array number, ask for initials and high score
                     if (arrayPosition > quiz.length-1){
+                        //call gameOver function to ask for initials and high score
                         gameOver();
                     }else{
                         //show next question
