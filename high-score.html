@@ -27,11 +27,20 @@
         var displayScore = document.getElementById('display-score');
         //gets the item from local storage if it already exists OR establish scoreArray for array of scores
         var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
+
+        function sortArray() {
+            for (i=0; i<scoreArray.length; i++) {
+                console.log(scoreArray[i].score);
+                scoreArray.sort();
+                console.log(scoreArray[i].score);
+            }
+        }
+
         displayScoreBtn.addEventListener("click", function displayScores() {
-            //when user clicks button
-            //iterate through array of scoreArray
-            //display values of array as text in the
-            console.log('displayScoreButton');
+           
+
+            //call sortArray function
+            sortArray();
             //create ol for ordered list
             var listEl = document.createElement("ol");
             //append ol element to display-score div
