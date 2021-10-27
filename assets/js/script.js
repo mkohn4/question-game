@@ -46,11 +46,13 @@ var scoreBtn = document.getElementById('score-btn');
 var scoreArray = JSON.parse(localStorage.getItem('scoreArray')) || [];
 //set timeLeft = timeScore when quiz questions answered
 var timeScore;
+var finished = 0;
+
 
 
 //function to submit initials and score
 function saveAnswer() {
-    //listen for click of initials submit button
+         //listen for click of initials submit button
     scoreBtn.addEventListener("click", function(event) {
         event.preventDefault();
         //store initials
@@ -70,21 +72,36 @@ function saveAnswer() {
             scoreArray.push(saveScore);
             //save array to local storage
             localStorage.setItem('scoreArray', JSON.stringify(scoreArray));
+            //set high score section to display none again
+            highScore.style.display = "none";
+            //alert user they saved initials
+            window.alert('Thanks for adding your High Score!');
+
         }
 
     });
+    
+
+   
 };
 
 //function to call when the game is over to hide elements and show input
 function gameOver() {
     //when question answered make quiz question disappear
     quizContainer.style.display = "none";
-    //display high score initials input
-    highScore.style.display="block";
     //set timeScore variable to current value of time left
     timeScore = timeLeft;
-    //call saveAnswer to save array into local storage of values
-    saveAnswer();
+    //if
+    if (finished === 1) {
+
+    } else {
+        //display high score initials input
+        highScore.style.display="block";
+
+        //call saveAnswer to save array into local storage of values
+        saveAnswer();
+    }
+    
 }
 
 //function to countdown timer
@@ -104,6 +121,8 @@ function countdown() {
         timerEl.textContent = 'Time Up!';
         //stop timer from running
         clearInterval(timeInterval);
+        //set finished = 1
+        finished = 1;
         //call game over function if time runs out
         gameOver();
       }
@@ -115,6 +134,7 @@ function countdown() {
 
 //onclick of each container
 startGame.addEventListener("click", function() {
+    finished = 0;
     //start timer
     countdown();
     //set value of display attribute on quiz 1 to block from none

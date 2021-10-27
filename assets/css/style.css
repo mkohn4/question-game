@@ -8,8 +8,7 @@ section#main {
     flex-direction: column;
 }
 
-#main h1,
-#main span {
+#main > *{
     text-align: center;
     margin-bottom: 5%;
 }
